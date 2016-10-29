@@ -26,8 +26,7 @@ const App = React.createClass({
     return this.state.messages.length + 1;
   },
   onNewMessage: function(message) {
-    this.state.messages.push({id: this.messageID(), username: this.state.currentUser.name, content: message.value});
-    this.setState({data: this.state.data});
+    this.socket.send(JSON.stringify(message));
   },
   componentDidMount: function () {
     this.socket = new WebSocket("ws://localhost:4000");

@@ -2,14 +2,21 @@ import React, {Component} from 'react';
 
 const ChatBar = React.createClass({
   getInitialState: function () {
-    return {value: 'Hello!'};
+    return {
+      username: this.props.currentUser.name,
+      content: ""
+    };
   },
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({
+      username: this.props.currentUser.name,
+      content: event.target.value
+    });
   },
   handleFormSubmit(e) {
     e.preventDefault();
     this.props.onNewMessage(this.state);
+    document.getElementById("new-message").value = "";
   },
   render: function() {
     return (
@@ -20,7 +27,7 @@ const ChatBar = React.createClass({
             id="new-message" 
             type="text" 
             placeholder="Type a message and hit ENTER"
-            value={this.state.value}
+            value={this.state.content}
             onChange={this.handleChange} />
           <input type="submit" label="Send"/>
         </form>
