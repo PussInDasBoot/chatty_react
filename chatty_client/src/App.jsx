@@ -19,7 +19,7 @@ const App = React.createClass({
   componentDidMount: function () {
     this.socket = new WebSocket("ws://localhost:4000");
     console.log("Connected to server");
-    this.socket.onmessage = function(event) {
+    this.socket.onmessage = (event) => {
       var msg = JSON.parse(event.data);
       this.state.data.messages.push(msg);
       this.setState({data: this.state.data});

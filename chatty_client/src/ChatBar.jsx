@@ -16,7 +16,7 @@ const ChatBar = React.createClass({
   handleFormSubmit(e) {
     e.preventDefault();
     this.props.onNewMessage(this.state);
-    document.getElementById("new-message").value = "";
+    this.state.content = "";
   },
   render: function() {
     return (
