@@ -3,25 +3,43 @@ import React, {Component} from 'react';
 const ChatBar = React.createClass({
   getInitialState: function () {
     return {
-      username: this.props.currentUser.name,
-      content: ""
+      username: this.props.currentUser,
+      content: "",
+      notification: "",
+      type: ""
     };
   },
-  handleChange(event) {
+  // Updates state when user field is updated
+  handleUserState(event) {
     this.setState({
-      username: this.state.username,
-      content: event.target.value
+      username: event.target.value,
+      notification: this.props.currentUser + " has changed their name to " + event.target.value,
+      type: "postNotification"
     });
   },
+  // Sends state to App when you hit enter on the username field
   handleUserChange(event) {
+    if (event.key === 'Enter' && this.props.currentUser != this.state.username) {
+      this.props.onPost(this.state);
+    }
+  },
+  // Updates state when message field is updated
+  handleMessageChange(event) {
     this.setState({
-      username: event.target.value
+      content: event.target.value,
+      type: "postMessage"
     });
   },
+  // Sends message to server on form submit, resets message field to blank
   handleFormSubmit(e) {
-    e.preventDefault();
-    this.props.onNewMessage(this.state);
-    this.state.content = "";
+    if (this.props.currentUser === this.state.username) {
+      e.preventDefault();
+    }
+    else {
+      e.preventDefault();
+      this.props.onPost(this.state);
+      this.state.content = "";
+    }
   },
   render: function() {
     return (
@@ -29,15 +47,16 @@ const ChatBar = React.createClass({
         <form onSubmit={this.handleFormSubmit}>
           <input id="username" 
             type="text" 
-            placeholder={this.props.currentUser.name} 
+            placeholder={this.props.currentUser} 
             value={this.state.username}
-            onChange={this.handleUserChange}/>
+            onChange={this.handleUserState}
+            onKeyUp={this.handleUserChange}/>
           <input 
             id="new-message" 
             type="text" 
             placeholder="Type a message and hit ENTER"
             value={this.state.content}
-            onChange={this.handleChange} />
+            onChange={this.handleMessageChange} />
           <input type="submit" label="Send"/>
         </form>
       </footer>

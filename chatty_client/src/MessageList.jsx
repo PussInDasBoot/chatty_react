@@ -8,6 +8,8 @@ const MessageList = React.createClass({
         {this.props.messages.map((message) => (
             <Message key={message.messageId} message={message}/>
           ))}
+        <div id="notification">
+        </div>
       </div>
     );
   }
