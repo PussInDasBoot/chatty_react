@@ -22,6 +22,7 @@ const App = React.createClass({
     this.socket.onmessage = (event) => {
       var msg = JSON.parse(event.data);
       this.state.data.messages.push(msg);
+      this.state.data.currentUser = msg.username;
       this.setState({data: this.state.data});
     };
   },

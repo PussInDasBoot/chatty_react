@@ -6,7 +6,7 @@ const MessageList = React.createClass({
     return (
       <div id="message-list">
         {this.props.messages.map((message) => (
-            <Message key={message.id} message={message}/>
+            <Message key={message.messageId} message={message}/>
           ))}
       </div>
     );

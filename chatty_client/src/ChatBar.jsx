@@ -9,8 +9,13 @@ const ChatBar = React.createClass({
   },
   handleChange(event) {
     this.setState({
-      username: this.props.currentUser.name,
+      username: this.state.username,
       content: event.target.value
+    });
+  },
+  handleUserChange(event) {
+    this.setState({
+      username: event.target.value
     });
   },
   handleFormSubmit(e) {
@@ -22,7 +27,11 @@ const ChatBar = React.createClass({
     return (
       <footer>
         <form onSubmit={this.handleFormSubmit}>
-          <input id="username" type="text" placeholder={this.props.currentUser.name} />
+          <input id="username" 
+            type="text" 
+            placeholder={this.props.currentUser.name} 
+            value={this.state.username}
+            onChange={this.handleUserChange}/>
           <input 
             id="new-message" 
             type="text" 
