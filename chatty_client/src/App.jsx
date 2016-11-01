@@ -5,7 +5,10 @@ import ChatBar from './ChatBar.jsx';
 const App = React.createClass({
   getInitialState: function() {
     var data = {
-      currentUser: "Bob",
+      currentUser: 
+        { name: "Bob",
+          colour: ""
+        },
       messages: [] // messages coming from the server will be stored here as they arrive
     };
     return {data: data};
@@ -23,17 +26,18 @@ const App = React.createClass({
       switch(data.type) {
         case "incomingMessage":
           this.state.data.messages.push(data);
-          this.state.data.currentUser = data.username;
+          this.state.data.currentUser.name = data.username;
           this.setState({data: this.state.data});
           break;
         case "incomingNotification":
-          this.state.data.currentUser = data.username;
+          this.state.data.currentUser.name = data.username;
           this.setState({data: this.state.data});
           var notification = document.getElementById("notification");
           // TODO, delete the notification afterwards perhaps?
           notification.innerHTML = data.content;
           break;
         case "updateOnlineUsers":
+          this.setState({data: this.state.data});
           var clientCount = document.getElementById("clientCount");
           if (data.clientCount > 1) {
             clientCount.innerHTML = data.clientCount + " users online";
@@ -54,7 +58,7 @@ const App = React.createClass({
           <h1>Chatty</h1><h2 id="clientCount"></h2>
         </nav>
         <MessageList messages={this.state.data.messages}/>
-        <ChatBar currentUser={this.state.data.currentUser} onPost={this.onPost}/>
+        <ChatBar currentUser={this.state.data.currentUser.name} onPost={this.onPost}/>
       </div>
     );
   }

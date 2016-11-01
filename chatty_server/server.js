@@ -24,15 +24,16 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
   var updateOnlineUsers = {
     clientCount: wss.clients.length,
-    type: "updateOnlineUsers"
+    type: "updateOnlineUsers",
   }
+  const userColour = chooseColour(wss.clients.length);
   wss.broadcast(JSON.stringify(updateOnlineUsers));
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
     console.log('Client disconnected');
     var updateOnlineUsers = {
       clientCount: wss.clients.length,
-      type: "updateOnlineUsers"
+      type: "updateOnlineUsers",
     }
     wss.broadcast(JSON.stringify(updateOnlineUsers));
   });
@@ -45,7 +46,8 @@ wss.on('connection', (ws) => {
           messageId: uuid.v4(),
           username: incomingData.username,
           content: incomingData.content,
-          type: "incomingMessage"
+          type: "incomingMessage",
+          colour: userColour
         }
         wss.broadcast(JSON.stringify(outgoingData));
         break;
@@ -71,3 +73,10 @@ wss.broadcast = function broadcast(data) {
     client.send(data);
   });
 };
+
+function chooseColour(num) {
+  var colours = ["#800080", "#FFA500", "#008080", "#008000"];
+  // var num = Math.floor(Math.random() * 4)
+  console.log(colours[num-1]);
+  return colours[num - 1];
+}
