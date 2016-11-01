@@ -32,14 +32,9 @@ const ChatBar = React.createClass({
   },
   // Sends message to server on form submit, resets message field to blank
   handleFormSubmit(e) {
-    if (this.props.currentUser === this.state.username) {
-      e.preventDefault();
-    }
-    else {
-      e.preventDefault();
-      this.props.onPost(this.state);
-      this.state.content = "";
-    }
+    e.preventDefault();
+    this.props.onPost(this.state);
+    this.state.content = "";
   },
   render: function() {
     return (

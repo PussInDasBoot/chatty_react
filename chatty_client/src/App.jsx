@@ -30,11 +30,20 @@ const App = React.createClass({
           this.state.data.currentUser = data.username;
           this.setState({data: this.state.data});
           var notification = document.getElementById("notification");
+          // TODO, delete the notification afterwards perhaps?
           notification.innerHTML = data.content;
+          break;
+        case "updateOnlineUsers":
+          var clientCount = document.getElementById("clientCount");
+          if (data.clientCount > 1) {
+            clientCount.innerHTML = data.clientCount + " users online";
+          } else {
+            clientCount.innerHTML = data.clientCount + " user online";
+          }
           break;
         default:
         // show an error in the console if the message type is unknown
-        throw new Error("Unknown event type " + data.type);
+        // throw new Error("Unknown event type " + data.type);
       }
     };
   },
@@ -42,7 +51,7 @@ const App = React.createClass({
     return (
       <div className="wrapper">
         <nav>
-          <h1>Chatty</h1>
+          <h1>Chatty</h1><h2 id="clientCount"></h2>
         </nav>
         <MessageList messages={this.state.data.messages}/>
         <ChatBar currentUser={this.state.data.currentUser} onPost={this.onPost}/>
