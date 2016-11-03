@@ -3,11 +3,6 @@ import Message from './Message.jsx';
 
 const MessageList = React.createClass({
   render: function() {
-
-    // var usernameStyle = {
-    //   color: this.props.messages.colour
-    // };
-
     return (
       <div id="message-list">
         {this.props.messages.map((message) => (

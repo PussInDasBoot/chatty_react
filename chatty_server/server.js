@@ -52,7 +52,6 @@ wss.on('connection', (ws) => {
         wss.broadcast(JSON.stringify(outgoingData));
         break;
       case "postNotification":
-        console.log(incomingData);
         var outgoingData = {
           messageId: uuid.v4(),
           username: incomingData.username,
@@ -62,7 +61,6 @@ wss.on('connection', (ws) => {
         wss.broadcast(JSON.stringify(outgoingData));
         break;
       default:
-      // TODO add error here
         throw new Error("Unknown event type " + incomingData.type);
     }
   }
@@ -76,7 +74,5 @@ wss.broadcast = function broadcast(data) {
 
 function chooseColour(num) {
   var colours = ["#800080", "#FFA500", "#008080", "#008000"];
-  // var num = Math.floor(Math.random() * 4)
-  console.log(colours[num-1]);
   return colours[num - 1];
 }

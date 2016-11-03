@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 const ChatBar = React.createClass({
   getInitialState: function () {
     return {
-      previoususer: this.props.currentUser,
-      username: this.props.currentUser,
+      previoususer: "Anonymous",
+      username: "Anonymous",
       content: "",
       notification: "",
       type: ""
@@ -47,7 +47,6 @@ const ChatBar = React.createClass({
         <form onSubmit={this.handleFormSubmit}>
           <input id="username" 
             type="text" 
-            placeholder={this.props.currentUser} 
             value={this.state.username}
             onChange={this.handleUserState}
             onKeyUp={this.handleUserChange}/>
