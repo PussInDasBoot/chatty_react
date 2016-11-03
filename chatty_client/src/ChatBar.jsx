@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 const ChatBar = React.createClass({
   getInitialState: function () {
     return {
+      previoususer: this.props.currentUser,
       username: this.props.currentUser,
       content: "",
       notification: "",
@@ -13,13 +14,17 @@ const ChatBar = React.createClass({
   handleUserState(event) {
     this.setState({
       username: event.target.value,
-      notification: this.props.currentUser + " has changed their name to " + event.target.value,
+      notification: this.state.previoususer + " has changed their name to " + event.target.value,
       type: "postNotification"
     });
   },
   // Sends state to App when you hit enter on the username field
   handleUserChange(event) {
-    if (event.key === 'Enter' && this.props.currentUser != this.state.username) {
+    if (event.key === 'Enter') {
+      this.setState({
+        previoususer: this.state.username
+      });
+    } else if (event.key === 'Enter' && this.props.currentUser != this.state.username) {
       this.props.onPost(this.state);
     }
   },

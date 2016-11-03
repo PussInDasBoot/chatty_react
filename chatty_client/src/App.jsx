@@ -36,6 +36,7 @@ const App = React.createClass({
           // TODO, delete the notification afterwards perhaps?
           notification.innerHTML = data.content;
           break;
+          // Will first rerender page as state is updated
         case "updateOnlineUsers":
           this.setState({data: this.state.data});
           var clientCount = document.getElementById("clientCount");
